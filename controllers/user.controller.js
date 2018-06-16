@@ -109,6 +109,7 @@ module.exports.create = (req, res, next) => {
  * @api {post} /login login
  * @apiGroup User
  * @apiHeader (Headers) {String} Content-Type Request format.
+ * @apiHeader (Headers) {String} token user's access token.
  * @apiHeaderExample {json} Headers-Example:
  *  {
  *    "Content-Type": "Content-Type: application/json"
@@ -126,9 +127,10 @@ module.exports.create = (req, res, next) => {
  *  {
  *    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1YjI0ODM0NTE1NTUxZjU2ODU4MzQ0ZDQiLCJpYXQiOjE1MjkxMTk3MjV9.V4PC8Xr0kMr4OFq59mPS3EvcEMa9aAKtZvltKSa3b2o"
  *  }
- * @apiError Invalid-data the <code>username</code> and <code>password</code> are invalid.
  * @apiErrorExample {json} Response-Error-Example:
+ * {
  *  HTTP/1.1 401 unauthenticated
+ * }
  * @apiError (400) ValidationError the username and password are required.
  * @apiErrorExample {json} Response-Validation-Example:
  *  HTTP/1.1 400 Bad Request
