@@ -8,6 +8,27 @@ const apiRouter = require('./routes/api');
 const path = require('path');
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, 'api_doc')));
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Expose-Headers', 'X-Total-Count');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Content-Type, Authorization, Content-Length, X-Requested-With, token'
+  );
+
+  //intercepts OPTIONS method
+  if ('OPTIONS' === req.method) {
+    //respond with 200
+    res.send(200);
+  } else {
+    //move on
+    next();
+  }
+});
+
+
 app.get('/docs', (req, res) => {
   res.sendFile((path.resolve(__dirname, 'api_doc', 'index.html')));
 });
