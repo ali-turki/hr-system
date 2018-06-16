@@ -1,6 +1,19 @@
 module.exports = {
-  DB_NAME: 'hr-system',
-  DB_HOST: 'mongodb://localhost',
-  PORT: process.env.PORT || 3000,
-  ENV: process.env.NODE_ENV || 'development'
-}
+  DB: {
+    NAME: 'hr-system',
+    HOST: 'mongodb://localhost',
+  },
+  ENV: {
+    PORT: process.env.PORT || 3000,
+    MODE: process.env.NODE_ENV || 'development'  
+  },
+  USER: {
+    DEFAULT_PASSWORD: '123456789'
+  },
+  BYCRPT: {
+    SALT_ROUNDS: 10
+  },
+  JWT: {
+    SECRET: 'egypt2030' // should be more comolecated on production.
+  }
+};

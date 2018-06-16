@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
+const bycrpt = require('bcrypt');
 const Schema = mongoose.Schema;
+const config = require('../config');
 
+function hashPassword(plaintextPassword, cb) {
+  bycrpt.hash(plaintextPassword, config.BYCRPT.SALT_ROUNDS, (err, hashedPasswored) => {
+    if (err) return cb(err);
+    cb(null, hashedPasswored);
+  });
+}
 const UserSchema = new Schema({
   username: {
     required: true,
@@ -36,5 +44,31 @@ const UserSchema = new Schema({
     default: false
   }
 });
+
+
+// Hashing the new passwords before save
+UserSchema.pre('save', function (next) {
+  // check whether this is a new record and has not entered a password
+  if (this.isNew && !this.password) {
+    this.password = config.USER.DEFAULT_PASSWORD;
+  }
+  if (this.isModified('password')) {
+    hashPassword(this.password, (err, hash) => {
+      if (err) return next(err);
+      this.password = hash;
+      next();
+    });
+  } else {
+    next();
+  }
+});
+
+// add custom method to compare the hashed password
+UserSchema.methods.comparePassword = function (plaintextPassword, cb) {
+  return bycrpt.compare(plaintextPassword, this.password, (err, isMatch) => {
+    if (err) return cb(err);
+    cb(null, isMatch);
+  });
+};
 
 module.exports = mongoose.model('User', UserSchema);
