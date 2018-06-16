@@ -13,6 +13,7 @@ const config = require('../config/index');
  * @apiGroup User
  * @apiPermission Admin
  * @apiHeader (Headers) {String} Content-Type Request format.
+ * @apiHeader (Headers) {String} token user's access token.
  * @apiHeaderExample {json} Headers-Example:
  *  {
  *    "Content-Type": "Content-Type: application/json",
@@ -197,6 +198,7 @@ function verifyToken(req, res, next, cb) {
 }
 /**
  * @api {get} /user get all users
+ * @apiGroup User
  * @apiSuccessExample {json} Success-Response-Example:
  *  HTTP/1.1 200 OK
  *  {
@@ -212,6 +214,7 @@ function verifyToken(req, res, next, cb) {
  *  }
  * @apiPermission Admin
  * @apiHeader (Headers) {String} Content-Type Request format.
+ * @apiHeader (Headers) {String} token user's access token.
  * @apiHeaderExample {json} Headers-Example:
  *  {
  *    "Content-Type": "Content-Type: application/json",
@@ -246,7 +249,8 @@ exports.fetchAll = (req, res, next) => {
 };
 
 /**
- * @api {put} /user/admin/userId set/take out an admin permission
+ * @api {put} /user/admin/userId change user permission
+ * @apiGroup User
  * @apiSuccessExample {json} Success-Response-Example:
  *  HTTP/1.1 200 OK
  *  {
@@ -262,6 +266,7 @@ exports.fetchAll = (req, res, next) => {
  *  }
  * @apiPermission Admin
  * @apiHeader (Headers) {String} Content-Type Request format.
+ * @apiHeader (Headers) {String} token user's access token.
  * @apiHeaderExample {json} Headers-Example:
  *  {
  *    "Content-Type": "Content-Type: application/json",
