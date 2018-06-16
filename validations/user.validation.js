@@ -21,7 +21,19 @@ module.exports = {
       }),
       body('name')
       .exists()
-      .custom(value => /^[a-zA-Z ]+$/.test(value))
+      .custom(value => /^[a-zA-Z ]+$/.test(value)),
+      body('email')
+      .exists()
+      .isEmail()
+      .custom(value => {
+        return User.findOne({
+            email: value
+          })
+          .then(user => {
+            if (user)
+              return Promise.reject('Email is already in use.');
+          });
+      }),
     ];
   },
   login: () => {
@@ -31,5 +43,8 @@ module.exports = {
       body('password')
       .exists()
     ];
+  },
+  isAdmin: () => {
+    return body('isAdmin').exists().isBoolean();
   }
 };
