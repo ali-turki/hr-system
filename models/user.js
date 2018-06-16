@@ -39,15 +39,32 @@ const UserSchema = new Schema({
     ref: 'User',
     default: null
   },
+  updateddBy: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: 'User',
+    default: null
+  },
   isAdmin: {
     type: Boolean,
     default: false
+  },
+  createdAt: {
+    type: String
+  },
+  updateAt: {
+    type: String
   }
 });
 
 
 // Hashing the new passwords before save
 UserSchema.pre('save', function (next) {
+
+  let time = new Date();
+  this.updateAt = time;
+  if (this.isNew) {
+    this.createdAt = time;
+  }
   // check whether this is a new record and has not entered a password
   if (this.isNew && !this.password) {
     this.password = config.USER.DEFAULT_PASSWORD;
