@@ -20,7 +20,7 @@ const config = require('../config/index');
  *    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1YjI0ODM0NTE1NTUxZjU2ODU4MzQ0ZDQiLCJpYXQiOjE1MjkxMTk3MjV9.V4PC8Xr0kMr4OFq59mPS3EvcEMa9aAKtZvltKSa3b2o"
  *  }
  * @apiParam {String} username A unique username.
- * @apiParam {String} [password=123456789] The user's login password.
+ * @apiParam {String} [password=password] The user's login password.
  * @apiParam {String} name User's fullname.
  * @apiParam {String} [email] email.
  * @apiParam {String} [title] title.
