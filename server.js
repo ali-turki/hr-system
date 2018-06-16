@@ -28,11 +28,11 @@ app.use(function(req, res, next) {
   }
 });
 
+app.use('/', apiRouter);
 
 app.get('/docs', (req, res) => {
   res.sendFile((path.resolve(__dirname, 'api_doc', 'index.html')));
 });
-app.use('/', apiRouter);
 
 // run the server
 app.listen(config.ENV.PORT, () => {
