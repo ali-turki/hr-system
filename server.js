@@ -7,7 +7,7 @@ const app = express();
 const apiRouter = require('./routes/api');
 const path = require('path');
 app.use(express.json());
-app.use(express.static(path.resolve(__dirname, 'api_doc')));
+app.use(express.static(__dirname + '/public'));
 
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -30,9 +30,6 @@ app.use(function(req, res, next) {
 
 app.use('/', apiRouter);
 
-app.get('/docs', (req, res) => {
-  res.sendFile((path.resolve(__dirname, 'api_doc', 'index.html')));
-});
 
 // run the server
 app.listen(config.ENV.PORT, () => {

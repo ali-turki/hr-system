@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "watch": "nodemon server.js",
-    "doc": "rm -rf api_doc & apidoc -i ./controllers/ -o api_doc"
+    "doc": "apidoc -i ./controllers/ -o public/docs/api"
   },
   "dependencies": {
     "bcrypt": "^2.0.1",
